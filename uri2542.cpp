@@ -18,7 +18,7 @@ class Baralho
         int qtdCartas;
     public:
         void lerCartas(int qtdCartas, int qtdAtributos);
-        int obterCarta(int carta, int posicao)      { return v[carta-1].obterValor(posicao-1); }
+        Carta obterCarta(int carta)      { return v[carta-1]; }
 };
 
 void Carta::lerAributos(int qtd)
@@ -44,9 +44,9 @@ int main ()
         Marcos.lerCartas(M, N);
         Leonardo.lerCartas(L, N);
         cin >> cartaM >> cartaL >> atributo;
-        if ( Marcos.obterCarta(cartaM, atributo) > Leonardo.obterCarta(cartaL, atributo) )
+        if ( Marcos.obterCarta(cartaM).obterValor(atributo-1) > Leonardo.obterCarta(cartaL).obterValor(atributo-1) )
             cout << "Marcos" << endl;
-        else if ( Marcos.obterCarta(cartaM, atributo) < Leonardo.obterCarta(cartaL, atributo) )
+        else if ( Marcos.obterCarta(cartaM).obterValor(atributo-1) < Leonardo.obterCarta(cartaL).obterValor(atributo-1) )
             cout <<"Leonardo" << endl;
         else 
             cout << "Empate" << endl;
