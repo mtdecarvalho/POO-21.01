@@ -1,49 +1,19 @@
+#include "classes.h"
+// #include "util.h"
+
 #include <iostream>
 #include <iomanip>
-#include <string>
 
-#define MAX 20
-
-using namespace std;
-
-class Disciplina
-{
-    private:
-        string nome, professor;
-        int codigo, creditos, semestre, ano;
-        double nota1, nota2;
-    public:
-        void lerCodigo( int aux ) { codigo = aux; }
-        void lerDisciplina();
-        void alterarDisciplina();
-        void mostrar();
-        string getNome()          { return nome; }
-        string getProfessor()     { return professor; }
-        int getCodigo()           { return codigo; }
-        int getCreditos()         { return creditos; }
-        int getSemestre()         { return semestre; }
-        int getAno()              { return ano; }
-        double getNota1()         { return nota1; }
-        double getNota2()         { return nota2; }
-        double getMedia()         { return (nota1+2*nota2)/3; }
-};
-
-class Disciplinas
-{
-    private:
-        Disciplina v[MAX];
-        int qtd;
-    public:
-        void inicializar()                           { qtd = 0; }
-        Disciplina getDisciplina( int posicao )      { return v[posicao]; }
-        int indice( int codigo );
-        void alterar();
-        void remover();
-        void lerGrade();
-        void mostrarGrade();
-        void mostrarMedia();
-        void mostrarDisciplina();
-};
+void Disciplina::lerCodigo( int aux ) { codigo = aux; }
+string Disciplina::getNome()          { return nome; }
+string Disciplina::getProfessor()     { return professor; }
+int Disciplina::getCodigo()           { return codigo; }
+int Disciplina::getCreditos()         { return creditos; }
+int Disciplina::getSemestre()         { return semestre; }
+int Disciplina::getAno()              { return ano; }
+double Disciplina::getNota1()         { return nota1; }
+double Disciplina::getNota2()         { return nota2; }
+double Disciplina::getMedia()         { return (nota1+2*nota2)/3; }
 
 void Disciplina::lerDisciplina()
 {
@@ -55,7 +25,8 @@ void Disciplina::lerDisciplina()
     cout << "Entre com a nota 1 e nota 2: ";                    cin >> nota1 >> nota2;
     cin.ignore();
     cout << "Entre com o nome do professor: ";                  getline(cin, professor);
-    cout << "Disciplina lida com sucesso!" << endl;
+    cout << "\nDisciplina lida com sucesso!\n" << endl;
+    pausartela();
 }
 
 void Disciplina::alterarDisciplina()
@@ -64,60 +35,69 @@ void Disciplina::alterarDisciplina()
     bool fim = 0;
     while (!fim)
     {
+        limpartela();
+        cout << "------------- FAETERJ PETROPOLIS -------------" << endl;
         cout << "O que deseja alterar?" << endl;
         cout << "1. Nome\n2. Creditos\n3. Semestre\n4. Ano\n5. Nota 1\n6. Nota 2\n7. Professor\n0. Sair" << endl;
+        cout << "----------------------------------------------" << endl;
         cin >> opcao;
         switch (opcao)
         {
             case 1:
-                // limpartela();
                 cin.ignore();
                 cout << "Insira o novo nome da disciplina: ";       getline(cin, nome);
                 break;
             case 2:
-                // limpartela();
                 cout << "Insira o novo valor dos creditos: ";       cin >> creditos;
                 break;
             case 3:
-                // limpartela();
                 cout << "Insira o novo valor para semestre: ";      cin >> semestre;
                 break;
             case 4:
-                // limpartela();
                 cout << "Insira o novo valor para ano: ";           cin >> ano;
                 break;
             case 5:
-                // limpartela();
                 cout << "Insira o novo valor para Nota 1: ";        cin >> nota1;
                 break;
             case 6:
-                // limpartela();
                 cout << "Insira o novo valor para Nota 2: ";        cin >> nota2;
                 break;
             case 7:
-                // limpartela();
+                limpartela();
                 cin.ignore();
                 cout << "Insira o novo valor para Professor: ";     getline(cin, professor);
                 break;
             case 0:
                 fim = 1; break;
             default:
-                cout << "Opcao invalida." << endl; // pausartela();
+                cout << "Opcao invalida." << endl; pausartela();
         }
-        if ( opcao != 0 ) cout << "Dado alterado com sucesso." << endl;
+        if ( opcao != 0 ) 
+        {
+            cout << "Dado alterado com sucesso." << endl;
+            pausartela();
+        }
     }
 }
 
 void Disciplina::mostrar()
 {
     cout << setprecision(2);
+    cout << "------------- DISCIPLINA " << codigo << " -------------" << endl;
+    cout << "\n";
     cout << "Codigo: " << codigo << " Nome: " << nome << endl;
     cout << "Creditos: " << creditos << " Semestre: " << semestre << " Ano: " << ano << endl;
     cout << "Nota 1: " << nota1 << " Nota 2: " << nota2 << " Media: " << getMedia() << endl;
     cout << "Professor: " << professor << endl;
+    cout << "\n";
+    cout << "\t\t--------" << endl;
+
 }
 
-int Disciplinas::indice(int codigo)
+void Historico::inicializar()                           { qtd = 0; }
+Disciplina Historico::getDisciplina( int posicao )      { return v[posicao]; }
+
+int Historico::indice(int codigo)
 {
     bool achou = 0;
     int i = 0;
@@ -131,13 +111,16 @@ int Disciplinas::indice(int codigo)
     return achou == 1 ? i : -1;
 }
 
-void Disciplinas::lerGrade()
+void Historico::lerGrade()
 {
     int aux;
+    cout << "------------- FAETERJ PETROPOLIS -------------" << endl;
+    cout << "\n";
     cout << "Entre com o codigo da disciplina: ";               cin >> aux;
     if ( indice(aux) > -1 )
     {
         cout << "Uma disciplina com este codigo ja existe no sistema." << endl;
+        pausartela();
     }
     else 
     {
@@ -147,7 +130,7 @@ void Disciplinas::lerGrade()
     }
 }
 
-void Disciplinas::alterar()
+void Historico::alterar()
 {
     int codigo;
     cout << "Insira o codigo da disciplina a ser alterada: "; cin >> codigo;
@@ -155,21 +138,25 @@ void Disciplinas::alterar()
         v[indice(codigo)].alterarDisciplina();
 }
 
-void Disciplinas::remover()
+void Historico::remover()
 {
     int codigo;
     cout << "Insira o codigo da disciplina a ser removida: "; cin >> codigo;
     if ( indice(codigo) > -1 )
     {
-        cout << "Disciplina " << v[indice(codigo)].getNome() << " removida com sucesso." << endl; 
+        cout << "\nDisciplina " << v[indice(codigo)].getNome() << " removida com sucesso.\n" << endl; 
         v[indice(codigo)] = v[qtd-1];
         qtd--; 
+        pausartela();
     }
     else
+    {
         cout << "Disciplina nao encontrada." << endl;
+        pausartela();
+    }
 }
 
-void Disciplinas::mostrarGrade()
+void Historico::mostrarGrade()
 {
     cout << endl;
     if ( qtd > 0 )
@@ -180,76 +167,34 @@ void Disciplinas::mostrarGrade()
         }
     else 
         cout << "Nenhuma disciplina foi cadastrada no Sistema.\n" << endl;    
+    pausartela();
 }
 
-void Disciplinas::mostrarMedia() 
+void Historico::mostrarMedia() 
 {
     int codigo;
     cout << "Insira o codigo da disciplina a ser consultada: "; cin >> codigo;
     if ( indice(codigo) > -1 )
     {
+        cout << "\n";
         cout << "Media da disciplina " << v[indice(codigo)].getNome() << ": "
         << v[indice(codigo)].getMedia() << endl;
+        cout << "\n";
     }
     else
-        cout << "Disciplina nao encontrada." << endl;
+        cout << "Disciplina nao encontrada.\n" << endl;
+    pausartela();
 }
 
-void Disciplinas::mostrarDisciplina()
+void Historico::mostrarDisciplina()
 {
     int codigo;
     cout << "Insira o codigo da disciplina a ser mostrada: "; cin >> codigo;
     if ( indice(codigo) > -1 )
         v[indice(codigo)].mostrar();
     else 
-        cout << "Disciplina nao encontrada." << endl;
-}
-
-void menu ( Disciplinas &a )
-{
-    int opcao;
-    bool fim = 0;
-    while (!fim)
     {
-        cout << "\tBem vindo ao sistema academico da FAETERJ! O que deseja fazer?\n" << endl;
-        cout << "1. Adicionar uma disciplina no sistema.\n2. Conferir media de uma disciplina.\n3. Mostrar dados de uma disciplina.\n"
-                "4. Remover uma disciplina.\n5. Alterar os dados de uma disciplina.\n6. Listar todas as disciplinas disponiveis no sistema.\n0. Encerrar programa." << endl;
-                
-        cin >> opcao;
-        switch ( opcao )
-        {
-            case 1:
-                a.lerGrade();
-                break;
-            case 2:
-                a.mostrarMedia();
-                break;
-            case 3:
-                a.mostrarDisciplina();
-                break;
-            case 4:
-                a.remover();
-                break;
-            case 5:
-                a.alterar();
-                break;
-            case 6:
-                a.mostrarGrade();
-                break;
-            case 0:
-                fim = 1;
-                break;
-            default:
-                break;
-        }
+        cout << "Disciplina nao encontrada." << endl;
+        pausartela();
     }
-} 
-
-int main ()
-{
-    Disciplinas a;
-    bool fim = 0;
-    a.inicializar();
-    menu(a);
-    return 0;
 }
