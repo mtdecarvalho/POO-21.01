@@ -6,13 +6,7 @@
 
 void Disciplina::lerCodigo( int aux ) { codigo = aux; }
 string Disciplina::getNome()          { return nome; }
-string Disciplina::getProfessor()     { return professor; }
 int Disciplina::getCodigo()           { return codigo; }
-int Disciplina::getCreditos()         { return creditos; }
-int Disciplina::getSemestre()         { return semestre; }
-int Disciplina::getAno()              { return ano; }
-double Disciplina::getNota1()         { return nota1; }
-double Disciplina::getNota2()         { return nota2; }
 double Disciplina::getMedia()         { return (nota1+2*nota2)/3; }
 
 void Disciplina::lerDisciplina()
@@ -63,7 +57,6 @@ void Disciplina::alterarDisciplina()
                 cout << "Insira o novo valor para Nota 2: ";        cin >> nota2;
                 break;
             case 7:
-                limpartela();
                 cin.ignore();
                 cout << "Insira o novo valor para Professor: ";     getline(cin, professor);
                 break;
