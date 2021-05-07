@@ -1,10 +1,10 @@
-# Ignore all
+# Ignorar todos arquivos
 *
 
-# Unignore all with extensions
+# Ler todos arquivos que contenham extensões
 !*.*
 
-# Unignore all dirs
+# Ler todos os diretórios
 !*/
 
 historico-scratch.cpp
