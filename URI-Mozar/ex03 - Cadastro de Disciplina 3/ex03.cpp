@@ -63,18 +63,16 @@ void Historico::mostrarHistorico()
     cout << "Cod. Nome                                               Cred  Ano/S Media" << endl;
     for ( i = 0 ; i < qtd ; i++ )
         v[i].mostrar();
+    cin.ignore();
     while ( !esperaOk(linha) )
-    {
-        cin.ignore();
         getline(cin, linha);
-    }
 }
 
 int main ()
 {
     Disciplina a;
     Historico b;
-    int opcao;
+    int opcao = 0;
     b.inicializar();
     while ( opcao != 4 )
     {
