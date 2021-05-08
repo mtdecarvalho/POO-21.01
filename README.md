@@ -12,7 +12,7 @@ Contêm diversas resoluções de problemas do [URI Online Judge](https://www.uri
 O título dos arquivos faz referência ao ID do problema.
 Ex: "uri1001.cpp" é a resolução do [problema de ID 1001](https://www.urionlinejudge.com.br/judge/pt/problems/view/1001 "1001 - Extremamente Básico").
 
-### URI - Mozar
+## URI - Mozar
 
 Contêm as resoluções de listas de exercícios customizadas feitas pelo meu professor de POO, Mozar Baptista da Silva.
 Dividido em pastas conforme o exercício.
