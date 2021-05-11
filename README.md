@@ -36,3 +36,7 @@ Arquivos .in e .out foram fornecidos para validação do funcionamento do códig
 
 Contains solutions to the custom made lists of exercises created by my teacher, Mozar.
 All files are divided in folders according to the exercise number. .in and .out files also included but in a separate folder appropriately titled "input/output".
+
+## Calculadora 
+
+Work in progress.
