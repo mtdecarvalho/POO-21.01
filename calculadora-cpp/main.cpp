@@ -19,6 +19,8 @@ class OperacoesBasicas
     private:
         double x, y, resultado;
     public:
+        OperacoesBasicas()  {};
+        ~OperacoesBasicas() {};
         void ler()                  { cin >> x >> y;        }
         void soma()                 { resultado = x + y;    }
         void subtracao()            { resultado = x - y;    }
@@ -31,23 +33,6 @@ class OperacoesBasicas
         double getY()               { return y;             }
         double getResultado()       { return resultado;     }
 };
-
-class Eq2Grau
-{
-    private:
-        double a, b, c, delta, x1, x2;
-    public:
-        void ler();
-        double calculoDelta()                { return (b*b) - (4*a*c); }
-        void calcular();
-        void imprimirResultado()      { cout << "x¹ = " << x1 << " " << "x² = " << x2 << endl; }
-};
-
-// void OperacoesBasicas::radiciacao()
-// {
-//     if ( !ehNegativo(x) )
-//         resultado = 
-// }
 
 void OperacoesBasicas::imprimirResultado()
 {
@@ -65,6 +50,19 @@ void OperacoesBasicas::imprimirResultado()
     else if ( !achouNumero ) cout << setprecision(0) << fixed;
     cout << resultado << endl;
 }
+
+class Eq2Grau
+{
+    private:
+        double a, b, c, delta, x1, x2;
+    public:
+        Eq2Grau()  {};
+        ~Eq2Grau() {};
+        void ler();
+        double calculoDelta()                { return (b*b) - (4*a*c); }
+        void calcular();
+        void imprimirResultado()      { cout << "x¹ = " << x1 << " " << "x² = " << x2 << endl; }
+};
 
 void Eq2Grau::ler()
 {
