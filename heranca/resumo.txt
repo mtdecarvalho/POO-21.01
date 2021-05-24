@@ -1,0 +1,34 @@
+
+fazer um programa para ler varias formas geometricas(no maximo 100)
+e ao final listar o nome e a area de todas as formas geometricas lidas
+as forma geometricas podem ser:
+  retangulo:  area = base * altura
+  quadrado:   area = lado * lado
+  circulo:    area = PI*raio*raio
+
+
+
+1. identificar as entidades manipuladas e seus dominios
+formas geometricas: varias formas geometricas (quadrados, retangulos e circulos)
+    vetor de formageometrica
+    qtd indicando quanto do vetor esta sendo usado
+
+forma geometrica: representa uma forma geometrica (quadrado, retangulo ou circulo)
+    tipo: inteiro (1-quadrado, 2-retangulo e 3-circulo)
+    lado,base,altura,raio: real 
+    
+2. identificar as operacoes necessarias para cada entidade
+    formas geometricas
+        ler
+        listar
+    
+    forma geometrica
+	ler
+	obternome
+        area
+
+------
+3. criar uma classe para cada entidade
+4. implementar os metodos de cada classe 
+5. programa principal
+---------------------------------------------------------------------------
