@@ -1,12 +1,4 @@
-# Ignorar todos arquivos
-*
-
-# Ler todos arquivos que contenham extensões
-!*.*
-
-# Ler todos os diretórios
-!*/
-
+*.exe
 historico-scratch.cpp
 /.vscode
 /URI-Mozar/AV1
