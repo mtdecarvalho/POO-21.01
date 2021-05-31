@@ -1,0 +1,202 @@
+1-) Faça um programa para ler os vertices de um poligono e mostrar o perimetro do poligono lido.
+    o programa principal eh este e nao pode ser alterado
+    int main()
+    {
+        TPoligono p;
+	p.ler();
+        cout << "perimetro - " << p.perimetro();
+        return 0;
+    }
+    obs: entrada, na primeira linha teremos um inteiro n, contentendo a quantiade de vertices
+         nas n linhas seguintes teremos cada vertices (ponto 2D: x,y reais), cada linha de vertices tem
+         dois valores reais separados por espaco.
+       ex: 4
+           1.0 1.0
+           1.0 0.0  
+           0.0 0.0
+           0.0 1.0
+
+         saida deve-se escrever "perimetro - " seguido do valor do perimetro com 2 casas decimais.
+	 ex: perimetro - 4.00        
+          
+    
+
+2-) faça um programa para ler n valores inteiros e mostra-los na ordem inversa da leitura
+    o programa principal eh este e nao pode ser alterado
+    int main()
+    {
+        TVetInt v;
+	v.ler();
+	v.inverter();
+	v.listar();
+        return 0;
+    }
+
+    entrada: na primeira linha temos o valor de n (0 < n <= 100), na segunda linha temos n numeros inteiros m (-10000 < m < 10000), separados com espaco
+       ex: 10
+           1 2 3 4 5 6 7 8 9 10
+             
+    saida: listar os numeros, na mesma linha, na ordem inversa da leitura, separados por espaco, sendo que o ultimo numero nao pode ter espaco depois
+           obs: nao se esqueca de pular linha, no ultimo valor
+           ex: 10 9 8 7 6 5 4 3 2 1
+
+
+3-) faça uma classe para representar um conjuntos de numeros reais de no maximo 100 elementos
+   nesta classe deve-se ter as seguintes operacoes
+
+    a. inserir elemento
+    b. remover elemento
+    c. pertence (se um elemento pertence ou nao ao conjunto)
+    d. esta contido (se um conjunto esta contido no outro)
+    e. uniao
+    f. interseca
+    g. subtracao de conjuntos
+
+    o programa principal eh este e nao pode ser alterado
+    int main()
+    {
+        TConjunto a,b,c,d,e;
+        int x;
+	a.ler();
+        b.ler();
+        c.uniao(a,b);
+	cout << " a UNIAO b = ";
+	c.mostrar();
+	d.intersecao(a,b);
+	cout << " a INTERSECAO b = ";
+        d.mostrar();
+	cout << "d esta contido em a:" << d.estacontido(a)?"sim":"nao" << endl;
+	cout << "a contem d:" << a.contem(d)?"sim"?"nao" << endl;
+	cout << "c esta contido em a:" << c.estacontido(a) << endl;
+	cout << "c contem a:" << c.contem(a)?"sim":"nao" << endl;
+	cout << "c contem b:" << c.contem(b)?"sim":"nao" << endl;
+	cout << "a contem b:" << a.contem(b)?"sim":"nao" << endl;
+	cout << "a esta contido em b:" << a.estacontido(b)?"sim":"nao" << endl;
+	cout << " a - b = ";
+        e.subtracao(a,b);
+        e.mostrar();
+        cin >> x;
+	while (x>0){
+	   cout << x << " pertence ao conjunto A: " << a.pertence(x)?"sim":"nao" << endl;
+           cin >> x;
+	}
+        return 0;
+    }
+
+   entrada: na primeira linha termos um inteiro NA (0 < NA < 100) que representa o numero de linhas dos elementos
+            a serem inseridos no conjunto A (nao eh a quantidade de elementos, uma vez que podem ter elementos repetidos na entrada e no conjunto nao pode ter)
+            na linha seguinte teremos NA numeros inteiros separados por espaco, que devem ser inseridos no conjunto A
+            na seguencia teremos um inteiro NB (0 < NB < 100) que representa o numero de linhas dos elementos a serem inseridos no conjunto B (nao eh a quantidade de elementos, uma vez que podem ter elementos repetidos na entrada e no conjunto nao pode ter) 
+            na linha seguinte teremos NB numeros inteiros separados por espaco, que devem ser inseridos no conjunto B
+	    na ultima linha teremos varios valores inteiros que devem ser lidos e testados se pertencem ou nao ao conjunto A,
+            este linha termina com o numero 0, que nao deve ser testado.
+      ex: 10
+          1 2 3 3 2 1 2 7 8 8
+          5
+          1 2 3 4 5
+    	  1 2 3 4 5 6 7 8 9 10 11 0	
+
+4-) faça um programa para ler um polinomio de no maximo 100 termos, ler o valor de x e mostrar 
+    o valor do polinomio para o valor de x lido.
+
+    polinomio = c1*x^e1 + c2*x^e2 + .... cn*x^en
+
+    onde ci - coeficiente do i-esimo termo do polinomio
+         ei - expoente do i-esimo termo do polinomio
+
+
+    int main()
+    {
+        TPolinomio p;
+        float x;
+	p.ler();
+	cin >> x;
+        cout << "p(" << x << ") = " << p.calular(x) << endl;
+        return 0;
+    }
+    entrada: na primeira linha temos N inteiro (0 < N < 100), seguido de n linhas com um numero real C e um inteiro E, que 
+             representam o Coefidiente e Expoente do termo lido. e por final teremos um unico numero real, que é o Valor de X
+             para o qual deve calcular o valor do polinomio
+    4
+    1.5 2
+    -3.1 1
+    4.0 0
+    2.1 10        
+    0.0
+    polinomio:  1.5X^2 -3.1X^1 + 4.0X^0 + 2.1X^10   
+                1.5*0 -3.1*0 + 4.0*1 + 2.1*0 = 4.00 
+    saida: p(0.0) = 4.0 
+
+5-) faça um programa para controlar as notas da turma de poo, o programa deve ler o nome, nota1 e nota 2, dos alunos (no maximo 100)
+    e depois listar todos os alunos, mostrando o nome, nota1, nota2, media e situacao (aprovado ou reprovado)
+    media = (nota1 + 2*nota2)/3
+    se media>=6 entao aprovado senao reprovado
+
+    int main()
+    {
+        TTurma t;
+	t.ler();
+        t.listar();
+        return 0;
+    }
+
+    entrada: na primeira linha temos um inteiro N (0 < N < 100), seguida de 3*N linhas, onde contendo o nome, nota1 e nota2
+    ex entrada:
+           2
+           Jo A Kim
+           7.0
+           10.0
+           Jo utro mundo
+           7.0
+           1.0
+   saida: listar o nome alinhamdo a esquerda com 50 colunas, seguido da media com 6 colunas e 2 casas decimais de precisao, seguido da situacao Aprovado ou Reprovado
+         Jo A Kim                                            9.00 Aprovado
+         Jo utro mundo                                       3.00 Reprovado
+
+
+6-) faça um programa que leia n numeros reais (no maximo 100)
+   e mostre a media sem os valores extremos (maior e menor valor)
+   ex: 1 7 5 1 3 5 7 3
+     maior = 7
+     menor = 1
+     media sem extremos = (5 + 3 + 5 + 3)/4 = 16/4 = 4
+
+    int main()
+    {
+        TVet v;
+	v.ler();
+        cout << fixed << setprecison(2);
+	cout << "Maior:"<< v.maior() << endl;
+	cout << "Menor:"<< v.menor() << endl;
+	cout << "Media sem extremos:"<< v.mediaEx() << endl;
+        return 0;
+    }
+
+    entrada: contem na primeira linha n numero inteiro (0 < N <= 100) na segunda linhas teremos N numeros reais, separados por espaco
+    ex: 8
+        1.0 7.0 5.0 1.0 3.0 5.0 7.0 3.0
+    saida: "Media sem extremos:" seguido do valor da media com 2 casas decimais de precisao 
+        
+7-) faça um programa que leia uma matriz de caracter e mostre a transposta da matriz.
+    o programa principal eh este e nao pode ser alterado
+    int main()
+    {
+        TMatriz a;
+	a.ler();
+	a.transposta();
+        a.mostrar();
+        return 0;
+    }
+
+    entrada: na primeria linha teremos dois inteiros N e M (0 < N,M <= 100) contendo a quantidade de linhas e colunas da matriz, respectivamente.
+             na sequencia teremos N Linhas, onde para cada linha teremos M caracteres 
+        ex: 3 4
+            ABCD
+            xyzw
+            1234
+    saida: mostrar a transposta da matriz lida
+            Ax1
+            By2
+            Cz3
+            Dw4
+
