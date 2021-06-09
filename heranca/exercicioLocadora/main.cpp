@@ -15,9 +15,6 @@ class IAlugavel
         virtual string getEstilo() = 0;        
         virtual string getProdutora() = 0;     
         virtual string getMidia() = 0;   
-        // virtual string getPlataforma() = 0;
-        // virtual string getAtorPrincipal() = 0;
-        // virtual string getDiretor() = 0;
 };
 
 class Item : public IAlugavel
@@ -30,12 +27,12 @@ class Item : public IAlugavel
         virtual void ler();
         virtual void mostrar();
         virtual double alugel() = 0;
-        virtual int getCodigo()             { return codigo; }
-        virtual int getAnoDeLancamento()    { return anoDeLancamento; }
-        virtual string getTitulo()          { return titulo; }
-        virtual string getEstilo()          { return estilo; }
-        virtual string getProdutora()       { return produtora; }
-        virtual string getMidia()           { return midia; }
+        int getCodigo()             { return codigo; }
+        int getAnoDeLancamento()    { return anoDeLancamento; }
+        string getTitulo()          { return titulo; }
+        string getEstilo()          { return estilo; }
+        string getProdutora()       { return produtora; }
+        string getMidia()           { return midia; }
 };
 
 void Item::ler()
@@ -163,12 +160,12 @@ int Locadora::obterIndice()
 {
     int codigo, i = 0;
     bool achou = 0;
-    cin >> codigo;
+    cout << "Insira o codigo do item: "; cin >> codigo;
     while ( !achou && i < qtd )
     {
         if ( v[i]->getCodigo() == codigo )
             achou = 1;
-        else 
+        else
             i++;
     }
     return achou ? i : -1;
@@ -214,11 +211,15 @@ void Locadora::listarDadaInformacao()
             v[i]->getMidia().find(filtro) != string::npos || v[i]->getEstilo().find(filtro) != string::npos)
                 v[i]->mostrar();
         else if ( v[i]->getTipo() == "Filme" )
+        {
             if ( ((Filme*)v[i])->getAtorPrincipal().find(filtro) != string::npos || ((Filme*)v[i])->getDiretor().find(filtro) != string::npos )
                 v[i]->mostrar();
+        }
         else if ( v[i]->getTipo() == "Jogo" )
+        {
             if ( ((Jogo*)v[i])->getPlataforma().find(filtro) != string::npos )
                 v[i]->mostrar();
+        }
     }
 }
 
