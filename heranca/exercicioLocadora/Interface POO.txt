@@ -1,0 +1,423 @@
+interface - "Protocolo de comunicacao"
+ex:
+  UI   - User Interface
+  GUI  - Graphic User Interface
+  PCI  - Peripheral Component Interconnect 
+  USB  - Universal Serial Bus
+  AGP  - Accelerated Graphics Port 
+  
+
+Em C++ nao temos interface, na maioria das linguagens de programação temos classes e interfaces.
+Em C++ nao temos interface, uma vez, que c++ tem herança multipla, e outras linguagens nao tem.
+ex:
+
+#include <iostream>
+using namespace std;
+
+class data
+{
+   public:
+	    int d,m,a;//dia mes ano    
+        void ler()          { scanf("%d/%d/%d",&d,&m,&a); };
+        void mostrar()      { printf("%02d/%02d/%04d",d,m,a); };
+};
+
+class hora
+{
+   public:
+	    int h,m,s;//hora minuto segundo    
+        void ler()          { scanf("%d:%d:%d",&h,&m,&s); };
+        void mostrar()      { printf("%02d:%02d:%02d",h,m,s); };
+};
+
+class datahora : public data, hora
+{
+    public:
+        void ler()              { data::ler(); hora::ler();         }
+        void mostrar()          { data::mostrar(); printf(" "); hora::mostrar(); }
+        void set(int dia, int mes, int ano, int hora, int min, int seg)
+            {
+                d=dia;
+                data::m=mes;
+                a=ano;
+                h=hora;
+                hora::m=min;
+                s=seg;
+            }
+};
+
+int main() {
+	data dt;
+	hora hr;
+    datahora dthr;	
+	
+	dt.ler();
+	hr.ler();
+	
+	dthr.ler();
+	
+	dt.mostrar();
+	printf("\n");
+	hr.mostrar();
+	printf("\n");
+	
+	dthr.set(31,12,2000,20,50,51);
+	dthr.mostrar();
+	printf("\n");
+	return 0;
+}
+
+Exemplo do efeito diamente
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class Pessoa
+{
+   public:
+	string nome;
+        void ler()          { cin >>  nome;                                         }       
+        void mostrar()      { cout << "nome:" << nome << endl;                      }
+};
+
+class PessoaFisica : public virtual Pessoa
+{
+   public:
+	    string cpf;
+        void ler()          { Pessoa::ler(); cin >> cpf;                            };
+        void mostrar()      { Pessoa::mostrar(); cout << "CPF:" << cpf << endl;     };
+};
+
+class PessoaJuridica : public virtual Pessoa
+{
+   public:
+	string cnpj;
+        void ler()          { Pessoa::ler(); cin >> cnpj;                            };
+        void mostrar()      { Pessoa::mostrar(); cout << "CNPJ:" << cnpj << endl;    };
+};
+
+class Cliente : PessoaFisica, PessoaJuridica
+{
+    public:
+        void ler()          { PessoaFisica::ler(); PessoaJuridica::ler();               };
+        void mostrar()      { PessoaFisica::mostrar(); PessoaJuridica::mostrar();       };
+};
+
+int main() {
+    Cliente c;
+
+    c.ler();
+    c.mostrar();
+
+    return 0;
+}
+
+em C++ simulamos o uso de interfaces, criando classes totalmente abstratas e sem atributos
+ex:
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cstdlib>
+
+using namespace std;
+
+class IAvaliavel{
+    public:
+        virtual void ler() = 0;
+        virtual double media() = 0;     //virtual puro  ->   metodo abstrato, logo a classe é abstrata
+        virtual string getClasse()= 0;
+        virtual string getNome()= 0;
+        virtual int getCodigo()=0;
+        virtual int getCreditos()=0;
+        virtual int getSemestre()=0;
+        virtual int getAno()=0;
+};
+
+class Aleatoria {
+    protected:
+        int ano, sem;        
+        double notafinal;
+        string nome;
+    public:
+        double media()   { return notafinal;             }
+        void ler()       { cin>> nome; cin >> notafinal; cin>> ano; cin >> sem; }
+        string getNome() { return nome;                  }       
+};
+
+class Exporadica : public Aleatoria, public IAvaliavel
+{
+    public:
+        string getClasse() { return "Exporadica"; }
+        int getCodigo()    { return 1;            }
+        int getCreditos()  { return 0;            }
+        int getSemestre()  { return sem;          }
+        int getAno()       { return ano;          }
+        double media()     { return Aleatoria::media();   }
+        void ler()         { Aleatoria::ler();            }
+        string getNome()   { return Aleatoria::getNome(); };  
+};
+
+class Disciplina : public IAvaliavel{
+    private:
+       string nome;
+       int creditos, semestre, ano, codigo;
+    public:
+        virtual void ler();
+        virtual double media() = 0;     //virtual puro  ->   metodo abstrato, logo a classe é abstrata
+        virtual string getClasse()	{ return "Disciplina"; }
+        string getNome()                { return nome;         }
+        int getCodigo()                 { return codigo;       }
+        int getCreditos()               { return creditos;     }
+        int getSemestre()               { return semestre;     }
+        int getAno()                    { return ano;          }
+};
+
+void Disciplina::ler(){
+    cout << "Codigo: ";
+    cin >> codigo;
+    cout << "Nome: ";
+    cin.ignore();
+    getline(cin, nome);
+    cout << "Creditos: ";
+    cin >> creditos;
+    cout << "Semestre: ";
+    cin >> semestre;
+    cout << "Ano: ";
+    cin >> ano;
+}
+
+
+class Tipo1 : public Disciplina {
+    protected:
+    	double nota1, nota2;
+    public:
+        void ler();
+	virtual string getClasse()	    { return "Tipo1";         }
+        virtual double media()		    { return (nota1+nota2)/2; }
+};
+
+void Tipo1::ler(){
+    Disciplina::ler();
+    cout << "Nota 1: ";
+    cin >> nota1;
+    cout << "Nota 2: ";
+    cin >> nota2;
+}
+
+class Tipo2 : public Tipo1 {
+    public:
+	string getClasse()	    { return "Tipo2";           }
+        double media()		    { return (nota1+2*nota2)/3; }
+};
+
+class Tipo3 : public Disciplina {
+private:
+     double notaMonografia, notaApresentacao, notaPratica;
+public:
+    void ler();
+    string getClasse()	    	    	    { return "Tipo3";           }
+    double media()			    { return (2 * notaMonografia + 3 * notaApresentacao + notaPratica) / 6; }
+    double getNotaApresentacao()	    { return notaApresentacao;  }
+};
+
+void Tipo3::ler(){
+    Disciplina::ler();
+    cout << "Nota Monografia: ";
+    cin >> notaMonografia;
+    cout << "Nota Apresentacao: ";
+    cin >> notaApresentacao;
+    cout << "Nota Pratica: ";
+    cin >> notaPratica;
+}
+
+class Historico {
+    private:
+        IAvaliavel* v[100];
+        int qtd;
+        int obterIndice(int busca);
+
+    public:
+        Historico();
+        virtual ~Historico();
+        bool existe(int busca);
+        void inserir(IAvaliavel* d);
+        void remover(int busca);
+        void alterar(IAvaliavel* d, int busca);
+        void listar();
+        void listartp2();
+        void listartp3nota();
+};
+
+Historico::Historico(){
+    qtd = 0;
+}
+
+Historico::~Historico(){
+    for (int i = 0; i < qtd; i++)
+        delete v[i];
+}
+
+
+void Historico::inserir(IAvaliavel* d){
+    v[qtd] = d;
+    qtd++;
+}
+
+int Historico::obterIndice(int busca){
+    bool achou = false;
+    int i = 0;
+    while (!achou && i < qtd){
+        if (busca == v[i]->getCodigo())
+            achou = true;
+        else
+            i++;
+    }
+    return achou ? i : -1;
+}
+
+bool Historico::existe(int busca){
+    return obterIndice(busca) > -1;
+}
+
+void Historico::remover(int busca){
+    int pos = obterIndice(busca);
+    delete v[pos];
+    for (int i = pos + 1; i < qtd; i++)
+        v[i-1] = v[i];
+    qtd--;
+}
+
+void Historico::alterar(IAvaliavel* d, int busca){
+    int pos = obterIndice(busca);
+    delete v[pos];
+    v[pos] = d;
+}
+
+void Historico::listar(){
+    cout << "Cod. Nome " << setfill(' ') << setw(63) << right << "Cred  Ano/S Media" << endl;
+    for (int i = 0; i < qtd; i++){
+        cout << setprecision(2) << fixed;
+        cout << setfill('0') << setw(4) << right << v[i]->getCodigo() << " ";
+        cout << setfill(' ') << setw(54) << left << v[i]->getNome();
+        cout << right << v[i]->getCreditos() << " " << right << v[i]->getAno() << "/" << v[i]->getSemestre() << " ";
+        cout << setfill('0') << setw(5) << v[i]->media() << endl;
+    }
+}
+
+void Historico::listartp2(){
+    cout << "Cod. Nome " << setfill(' ') << setw(63) << right << "Cred  Ano/S Media" << endl;
+    for (int i = 0; i < qtd; i++)
+	if (v[i]->getClasse()=="Tipo2")
+        {
+           cout << setprecision(2) << fixed;
+           cout << setfill('0') << setw(4) << right << v[i]->getCodigo() << " ";
+           cout << setfill(' ') << setw(54) << left << v[i]->getNome();
+           cout << right << v[i]->getCreditos() << " " << right << v[i]->getAno() << "/" << v[i]->getSemestre() << " ";
+           cout << setfill('0') << setw(5) << v[i]->media() << endl;
+        }
+}
+
+void Historico::listartp3nota(){
+    cout << "Cod. Nome " << setfill(' ') << setw(63) << right << "Cred  Ano/S Media" << endl;
+    for (int i = 0; i < qtd; i++)
+	if (v[i]->getClasse()=="Tipo3" && ((Tipo3*)v[i])->getNotaApresentacao()>7 )
+        {
+           cout << setprecision(2) << fixed;
+           cout << setfill('0') << setw(4) << right << v[i]->getCodigo() << " ";
+           cout << setfill(' ') << setw(54) << left << v[i]->getNome();
+           cout << right << v[i]->getCreditos() << " " << right << v[i]->getAno() << "/" << v[i]->getSemestre() << " ";
+           cout << setfill('0') << setw(5) << v[i]->media() << endl;
+        }
+}
+
+
+IDisciplina* criarDisciplina(){
+    int opc;
+    do{
+        cout << "1 - Disciplina tipo 1" << endl;
+        cout << "2 - Disciplina tipo 2" << endl;
+        cout << "3 - Disciplina tipo 3" << endl;
+        cout << "4 - Avaliacao exporadica" << endl;
+        cout << "Escolha uma opcao: ";
+        cin >> opc;
+    } while (opc < 1 || opc > 4);
+    switch (opc){
+        case 1: return new Tipo1();
+        case 2: return new Tipo2();
+        case 3: return new Tipo3();
+        case 4: return new Exporadica();
+        default:
+            cout << endl << "Opcao invalida!" << endl;
+            exit(0);
+    }
+}
+
+int menu(){
+    int opc;
+    do{
+        cout << "1. inserir disciplina" << endl
+             << "2. remover disciplina pelo codigo" << endl
+             << "3. alterar dados da disciplina dado o codigo" << endl
+             << "4. listar todas as disciplinas (mostrar nome, creditos e media)" << endl
+             << "5. listar todas as disciplinas do tipo 2" << endl
+             << "6. listar todoas as disciplinas do tipo 3 com nota da apresentacao > 7" << endl
+             << "7. Sair" << endl
+             << "Escolha uma opcao: ";
+        cin >> opc;
+    } while (opc < 1 || opc > 7);
+
+    return opc;
+}
+
+int main(){
+    IDisciplina* d;
+    Historico h;
+    bool fim = false;
+    int buscar;
+    while (!fim){
+        switch (menu()){
+        case 1:
+            d = criarDisciplina();
+            d->ler();
+            h.inserir(d);
+            cout << "Inserida com sucesso!" << endl; break;
+        case 2:
+            cout << "Digite o codigo da disciplina a ser removida: ";
+            cin >> buscar;
+            if(h.existe(buscar)){
+                h.remover(buscar);
+                cout << "Removida com sucesso!" << endl;              
+            }else
+                cout << "Nao encontrada!" << endl; break;
+        case 3:
+            cout << "Digite o codigo da disciplina a ser alterada: ";
+            cin >> buscar;
+            if(h.existe(buscar)){
+                d->ler();
+                h.alterar(d, buscar);
+                cout << "Alterada com sucesso!" << endl;
+            }else
+                cout << "Nao encontrada!" << endl; break;
+        case 4:
+            h.listar();
+            system("pause"); break;
+        case 5:
+            h.listartp2();                                          
+            system("pause"); break;
+        case 6:
+            h.listartp3nota(); 
+            system("pause"); break;
+        case 7:
+            fim = true; break;
+        default:
+            cout << "Opcao invalida!" << endl; break;
+        }
+    }
+}   
+
+
+
+
+
+  

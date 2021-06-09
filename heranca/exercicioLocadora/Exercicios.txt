@@ -1,0 +1,58 @@
+exercicios
+
+fazer um sistema de locadora de videos e games, neste sistema
+o usuario pode pegar um filme ou jogo, e paga um aluguel diario
+pelo uso do filme ou jogo.
+no sistema deve ser possivel realizar as seguintes tarefas
+
+1. inserir um novo item (filme ou jogo)
+2. remover um item dado o codigo (numero inteiro)
+3. alterar os dados de um item
+4. listar os itens onde eh dada uma parte da informacao
+     obs: deve-se pesquisar em todos os campos textos 
+   mostrar: codigo, nome, tipo (filme ou jogo), midia (dvd, stream, fita, cartucho, cd), ano e valor da diaria
+5. listar os jogos de uma plataforma
+6. mostrar o valor do aluguel dado o codigo
+
+os item podem ser:
+filmes: codigo, titulo, estilo (terror, drama, comedia, animacao,...), 
+        ator principal, diretor, produtora, ano de lancamento
+        midia (dvdm, stream, etc...)
+    valor do alugel diario
+       se ano de lancamento < 2020 ----> R$ 5.00
+       se ano de lancamento >= 2020 ---> R$ 7.00
+
+jogos: codigo, titulo, estilo (acao, fps, rpg, etc), 
+       ano de lancamento, produra, midia, 
+       numero de jogadores, plataforma (xbox, xbox360, xboxone ps3, ps4, ps5, atari, etc)       
+    valor do aluguel diario
+      se plataforma é (xbox series, ps5, nintendo switch)
+           desconto = 1.0
+      senao
+           desconto = 0.6
+      fimse
+      se ano de lancamento < 2020  ----> desconto * R$ 7.00
+      se ano de lancamento >= 2020  ----> desconto * R$ 12.00
+       
+
+--------------------------------------------------------------------
+classes:
+IAlugavel -> é a interface que contera o minimo necessario para o codigo
+             generico na locadora
+
+item : implementa a interface IAlugavel
+
+jogo : herda de item
+
+filme : herda de item
+
+locadora  -> colecao de IAlugavel
+   
+
+
+
+
+
+
+
+

@@ -15,5 +15,3 @@ as disciplinas podem ser dos seguintes tipos:
           media = (nota1+2*nota2)/3
   tipo 3: nome, creditos, semestre, ano, notaMonografia, notaApresentacao, notaPratica
           media = (2*notaMonografia  + 3*notaApresentacao + notaPratica)/6
-
-
